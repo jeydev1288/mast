@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mast design QA comparison</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 32px;
+        background: #e9edf4;
+        color: #10204a;
+        font-family: system-ui, sans-serif;
+      }
+      h1 { margin: 0 0 24px; font-size: 22px; }
+      .comparison { display: flex; gap: 32px; align-items: flex-start; }
+      figure { margin: 0; }
+      figcaption { margin-bottom: 10px; font-size: 14px; font-weight: 700; }
+      .frame {
+        width: 393px;
+        height: 852px;
+        overflow: hidden;
+        border: 1px solid #c8d1e1;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(27, 40, 70, 0.12);
+      }
+      img { display: block; width: 393px; height: 852px; object-fit: cover; }
+      iframe { display: block; width: 393px; height: 852px; border: 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Mast — source and implementation</h1>
+    <div class="comparison">
+      <figure>
+        <figcaption>Source</figcaption>
+        <div class="frame"><img src="/qa-source.png" alt="Selected Mast source design" /></div>
+      </figure>
+      <figure>
+        <figcaption>Implementation</figcaption>
+        <div class="frame"><iframe id="implementation" src="/" title="Rendered Mast implementation"></iframe></div>
+      </figure>
+    </div>
+    <script>
+      const frame = document.querySelector('#implementation');
+      frame.addEventListener('load', () => {
+        const doc = frame.contentDocument;
+        const style = doc.createElement('style');
+        style.textContent = `
+          body { min-width: 0 !important; }
+          .phone-stage { display: block !important; width: 393px !important; height: 852px !important; padding: 0 !important; }
+          .device-menu-bar, .phone-bezel { display: none !important; }
+          .phone-scale-box { width: 393px !important; height: 852px !important; }
+          .phone-device { left: 0 !important; top: 0 !important; transform: none !important; }
+          .device-screen { left: 0 !important; top: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+        `;
+        doc.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>
